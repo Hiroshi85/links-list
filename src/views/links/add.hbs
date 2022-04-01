@@ -1,0 +1,32 @@
+<div class="row p-4">
+    <div class="col-md-8 col-lg-5 mx-auto">
+        <div class="card">
+            <div class="card-body">
+                <form action="/links/add" method="POST">
+                <div class="mb-3">
+                    <input type="text" class="form-control" name="title" placeholder="Title" autofocus>
+                </div>
+
+                <div class="mb-3">
+                    <input type="url" class="form-control" name="url" placeholder="URL">
+                </div>
+
+                <div class="mb-3">
+                    <textarea class="form-control" name="description" placeholder="Description" rows="2"></textarea>
+                </div>
+                
+                <div class="mb-3 d-flex justify-content-around">
+                    <button class="btn btn-success">
+                        Save
+                    </button>
+
+                    <button class="btn btn-primary" type="reset">
+                        Clear
+                    </button>
+                </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

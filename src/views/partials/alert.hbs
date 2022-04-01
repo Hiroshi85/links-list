@@ -1,0 +1,21 @@
+{{#if success}}
+    <div class="row">
+        <div class="col-11 col-md-5 mx-auto">
+            <div class="alert alert-success alert-dismissible fade show m-2" role="alert">
+                    {{success}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="Close">
+                    </button>
+            </div>
+        </div>
+    </div>
+{{/if}}
+
+{{#if failure}}
+    <div class="row">
+        <div class="col-11 col-md-5 mx-auto mt-2">
+            <div class="alert alert-danger text-center" role="alert">
+                {{failure}}
+            </div>    
+        </div>
+    </div>
+{{/if}}
