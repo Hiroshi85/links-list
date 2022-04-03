@@ -1,10 +1,12 @@
 {
   "name": "crud-nodejs-mysql",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src"
+    "start": "node dist",
+    "dev": "nodemon src/index.ts",
+    "build": "tsc -p ."
   },
   "keywords": [],
   "author": "",
@@ -25,6 +27,9 @@
     "timeago.js": "^4.0.2"
   },
   "devDependencies": {
-    "@types/node": "^17.0.23"
+    "@types/express": "^4.17.13",
+    "@types/node": "^17.0.23",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.3"
   }
 }
