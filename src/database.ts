@@ -1,9 +1,9 @@
-const mysql = require("mysql2")
-const {database} = require("./keys.js")
+import mysql, {Pool, PoolConnection} from "mysql2";
+import {database} from "./keys";
 
-const poolSync = mysql.createPool(database);
+const poolSync: Pool = mysql.createPool(database);
 
-poolSync.getConnection((err, connection) => {
+poolSync.getConnection((err, connection: PoolConnection) => {
     if(err){
         if(err.code === 'PROTOCOL_CONNECTION_LOST')
             console.error('DATABASE CONNECTION WAS CLOSED');
@@ -13,19 +13,16 @@ poolSync.getConnection((err, connection) => {
         
         if (err.code === 'ECONNREFUSED')
             console.error('DATABASE CONNECTION WAS REFUSED');
-        console.error(err.message)
+        console.error(err.message);
     }
 
     if (connection){
         connection.release();
-        console.log('DB is connected')
+        console.log('DB is connected');
     }
     
     return;
 })
 
-const pool = poolSync.promise()
-
-//pool.query = promisify(pool.query) 
-
-module.exports = pool
+const pool = poolSync.promise();
+export default pool;
