@@ -21,7 +21,7 @@ CREATE TABLE links (
     user_id INT(11),
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY(id),
-    CONSTRAINT fk_user FOREIGN KEY(user_id) REFERENCES users(id)
+    KEY user_id_idx(user_id)
 );
 
 DESCRIBE links;
