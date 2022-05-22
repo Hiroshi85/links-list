@@ -17,7 +17,7 @@ router.post('/signup',
 )
 
 router.get('/profile', isLoggedIn, (req, res) => {
-    res.render('profile')
+    res.render('profile', {ip: req.ip})
 })
 
 router.get('/signin', isNotLoggedIn, (req, res) => {

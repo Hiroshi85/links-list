@@ -4,13 +4,13 @@
             <div class="col-sm-6 col-md-4">
                 <div class="card text-center mb-2">
                     <div class="card-body">
-                        <a href="{{url}}" target="_blank">
+                        <a href="{{this.url}}" target="_blank">
                             <h3 class="card-title text-uppercase">
                                 {{title}}
                             </h3>
                         </a>
-                        <p class="m-2">{{description}}</p>
-                        <p>{{timeago created_at}}</p>
+                        <p class="m-2">{{this.description}}</p>
+                        <p>{{timeago this.created_at}}</p>
                         <a href="/links/delete/{{id}}" class="btn btn-danger">Delete Link</a>
                         <a href="/links/edit/{{id}}" class="btn btn-secondary">Edit</a>
                     </div>
