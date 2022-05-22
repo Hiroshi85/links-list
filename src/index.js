@@ -6,6 +6,7 @@ const routes = require("./routes/")
 const {engine} = require("express-handlebars")
 const path = require('path');
 const flash = require('connect-flash')
+const cors = require('cors');
 
 const session = require('express-session');
 const MySQLStore = require('express-mysql-session')(session)
@@ -53,7 +54,7 @@ app.use(express.json());
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session())
-
+app.use(cors());
 
 //Global variables
 app.use((req, res, next) => {
