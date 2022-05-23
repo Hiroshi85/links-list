@@ -12,8 +12,9 @@ const session = require('express-session');
 const MySQLStore = require('express-mysql-session')(session)
 const passport = require('passport')
 
+const {session_secret} = require('./keys');
+
 const pool  = require('./database');
-//const favicon = require('serve-favicon')
 
 //Initializations
 const app = express();
@@ -21,6 +22,8 @@ require('./lib/passport');
 
 //Settings
 app.set('port', process.env.PORT || 4000);
+
+app.disable('x-powered-by');
 
 app.set('views', path.join(__dirname, 'views'));
 const viewsDir = app.get('views');
@@ -41,7 +44,7 @@ var sessionStore = new MySQLStore({}, pool)
 //Middleware
 
 app.use(session({
-    secret: 'cookie-crud-links',
+    secret: session_secret,
     store: sessionStore,
     resave: false,
     saveUninitialized: false
@@ -53,7 +56,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(flash());
 app.use(passport.initialize());
-app.use(passport.session())
+app.use(passport.session());
 app.use(cors());
 
 //Global variables
