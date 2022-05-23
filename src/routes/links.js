@@ -27,12 +27,16 @@ router.post('/add', validateCsrf, async (req, res) => {
     res.redirect('/links');
 })
 
-router.get('/',  async (req, res) => {
+router.get('/', generateCsrf,  async (req, res) => {
+    const csrf = req.session.csrf;
     const [rows] = await pool.query('SELECT * FROM links WHERE user_id = ?', [req.user.id]);
+    rows.forEach(row => {
+        row.csrf = csrf;
+    });
     res.render('links/list', {links: rows});
 })
 
-router.get('/delete/:id', async (req, res) => {
+router.get('/delete/:id', validateCsrf, async (req, res) => {
     const {id} = req.params
     const [rows] = await pool.query('DELETE FROM links WHERE ID=? AND user_id=?', [id, req.user.id])
     if(rows.affectedRows !== 0)

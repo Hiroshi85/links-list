@@ -8,14 +8,16 @@ const generateCsrf = (req, res, next) => {
 }
 
 const validateCsrf = (req, res, next) => {
-    
-    if(!req.body.csrf_token || req.body.csrf_token !== req.session.csrf){
-        return res.status(422).send('CSRF Token missing or expired');
-    }else{
-        next();
+            
+        if((!req.body.csrf_token || req.body.csrf_token !== req.session.csrf) && (!req.query.csrf || req.query.csrf !== req.session.csrf)){
+            return res.status(422).send('CSRF Token missing or expired');
+        }else{
+            next();
+        }
     }
-}
-
+    
+    
+    
 
 
 module.exports = {generateCsrf, validateCsrf};
