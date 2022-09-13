@@ -7,6 +7,7 @@ const {engine} = require("express-handlebars")
 const path = require('path');
 const flash = require('connect-flash')
 const cors = require('cors');
+var methodOverride = require('method-override');
 
 const session = require('express-session');
 const MySQLStore = require('express-mysql-session')(session)
@@ -53,6 +54,13 @@ app.use(session({
 
 app.use(morgan('dev'));
 app.use(express.urlencoded({extended: true}));
+app.use(methodOverride(function (req, res) {
+    if (req.body && '_method' in req.body) {
+      var method = req.body._method
+      delete req.body._method
+      return method
+    }
+}));
 app.use(express.json());
 app.use(flash());
 app.use(passport.initialize());
