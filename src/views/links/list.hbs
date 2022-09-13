@@ -11,8 +11,15 @@
                         </a>
                         <p class="m-2">{{this.description}}</p>
                         <p>{{timeago this.created_at}}</p>
-                        <a href="/links/delete/{{this.id}}?csrf={{this.csrf}}" class="btn btn-danger">Delete Link</a>
-                        <a href="/links/edit/{{this.id}}" class="btn btn-secondary">Edit</a>
+                            <div class="d-flex gap-3 justify-content-center">
+                                <form action="/links/delete/{{this.id}}" method="POST">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" value="{{this.csrf}}" name="csrf_token"/>
+                                <button type="submit" class="btn btn-danger">Delete Link </button>
+                            </form>
+                            <a href="/links/edit/{{this.id}}" class="btn btn-secondary">Edit</a>
+                        </div>
+                        
                     </div>
                 </div>
             </div>
