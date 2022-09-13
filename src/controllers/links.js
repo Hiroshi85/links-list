@@ -7,12 +7,12 @@ const index =  async (req, res) => {
     rows.forEach(row => {
         row.csrf = csrf;
     });
-    res.render('links/list', {links: rows});
+    return res.render('links/list', {links: rows});
 };
 
 const create = (req, res) => {
     const csrf_token = req.session.csrf;
-    res.render('links/add', {csrf_token});
+    return res.render('links/add', {csrf_token});
 };
 
 const store = async (req, res) => {
@@ -24,7 +24,7 @@ const store = async (req, res) => {
     };
     await pool.query('INSERT INTO links SET ?', [newLink])
     req.flash('success', 'Link saved successfully')
-    res.redirect('/links');
+    return res.redirect('/links');
 };
 
 const edit = async (req, res) => {
@@ -32,11 +32,10 @@ const edit = async (req, res) => {
     const {id} = req.params
     const [rows] = await pool.query('SELECT * FROM links WHERE id=? AND user_id=?', [id, req.user.id])
     if (rows.length !== 0)
-        res.render('links/edit', {link: rows[0], csrf_token})
-    else{
-        req.flash('failure', 'Link doesn\'t exist')
-        res.redirect('/links')
-    }
+        return res.render('links/edit', {link: rows[0], csrf_token})
+    
+    req.flash('failure', 'Link doesn\'t exist')
+    return res.redirect('/links');
 };
 
 const update = async (req, res) => {
@@ -45,8 +44,9 @@ const update = async (req, res) => {
     const {csrf_token, ...newLink} = req.body
     console.log(newLink)
     await pool.query('UPDATE links SET ? WHERE id=?', [newLink, id]);
-    req.flash('success', 'Link updated successfully')
-    res.redirect("/links")
+    req.flash('success', 'Link updated successfully');
+
+    return res.redirect("/links");
 };
 
 const destroy = async (req, res) => {
@@ -57,7 +57,7 @@ const destroy = async (req, res) => {
     else
         req.flash('failure', 'Link doesn\'t exist')
 
-    res.redirect('/links');
+    return res.redirect('/links');
 };
 
 module.exports = {

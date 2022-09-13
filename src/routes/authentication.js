@@ -3,6 +3,7 @@ const router = express.Router()
 const passport = require('passport')
 
 const {isLoggedIn, isNotLoggedIn} = require('../lib/auth')
+const {signinIndex, profileIndex, logoutIndex} = require('../controllers/authentication');
 
 router.get('/signup', (req, res) => {
     res.render('auth/signup')

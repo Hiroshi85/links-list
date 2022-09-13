@@ -54,13 +54,14 @@ app.use(session({
 
 app.use(morgan('dev'));
 app.use(express.urlencoded({extended: true}));
-app.use(methodOverride(function (req, res) {
+app.use(methodOverride((req, res) => {
     if (req.body && '_method' in req.body) {
       var method = req.body._method
       delete req.body._method
       return method
     }
 }));
+
 app.use(express.json());
 app.use(flash());
 app.use(passport.initialize());
@@ -73,19 +74,18 @@ app.use((req, res, next) => {
     app.locals.failure = req.flash('failure')
     app.locals.user = req.user
     next();
-})
-
+});
 
 //Routes
 app.use(routes)
 app.use(require('./routes/authentication'));
-app.use('/links', require('./routes/links'))
+app.use('/links', require('./routes/links'));
 
 //Public
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'public')));
 
 //Error 404
-app.use(require('./routes/notFound'))
+app.use(require('./controllers/404'));
 
 //Starting server
 

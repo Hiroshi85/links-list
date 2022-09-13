@@ -26,6 +26,4 @@ poolSync.getConnection((err, connection) => {
 
 const pool = poolSync.promise();
 
-//pool.query = promisify(pool.query)
-
 module.exports = pool;
